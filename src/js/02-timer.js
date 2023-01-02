@@ -1,31 +1,41 @@
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
+
 const btnStart = document.querySelector('[data-start]');
 btnStart.setAttribute("disabled", "disabled");
 
-const inipDate = document.querySelector('#datetime-picker');
+const initDate = document.querySelector('#datetime-picker');
 
-const flatpickr = require("flatpickr");
+const dateNow = new Date();
+
 const options = {
     enableTime: true,
     time_24hr: true,
     defaultDate: new Date(),
     minuteIncrement: 1,
     onClose(selectedDates) {
-      //  if (selectedDates - defaultDate) {
-       //return;     
-       // }
-      console.log(`selectedDates:`, selectedDates[0]);
+       if (dateNow > selectedDates[0]) {
+       alert('Please choose a date in the future')
+    } 
+        btnStart.removeAttribute("disabled", "disabled");
     },
+
   };
 
-  console.log(`options`, options);
+const datePickr = flatpickr(initDate, options)
 
-  flatpickr(inipDate,options);
-//function flatpickr(initDate, options); 
+let timerId = null;
+ btnStart.addEventListener('click', () => {
+    timerId = setInterval(() => {
+    const selectDate = datePickr.selectedDates[0].getTime();
+    const result = selectDate - dateNow.getTime();   
+
+    console.log(result);
+}, 1000);
+  });
 
 
-function convertMs(ms) {
+  function convertMs(ms) {
     // Number of milliseconds per unit of time
     const second = 1000;
     const minute = second * 60;
