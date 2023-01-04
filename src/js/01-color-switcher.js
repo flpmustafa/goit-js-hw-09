@@ -19,7 +19,7 @@
     return `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, 0)}`;
   }
 
-  btnStop.addEventListener('click', ()=> {
+  btnStop.addEventListener('click', () => {
     btnStart.removeAttribute("disabled", "disabled")
     btnStop.setAttribute("disabled", "disabled")
     clearInterval(timerId);
