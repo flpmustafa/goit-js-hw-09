@@ -18,11 +18,12 @@ const options = {
     minuteIncrement: 1,
     onClose(selectedDates) {
        if (dateNow > selectedDates[0]) {
-       alert('Please choose a date in the future')
-    } 
-        btnStart.removeAttribute("disabled", "disabled");
-    },
-  };
+          window.alert('Please choose a date in the future!')
+          window.location.reload(); }
+       btnStart.removeAttribute("disabled", "disabled");
+    }
+  }
+
 
   const datePickr = flatpickr(initDate, options)
 
@@ -32,7 +33,7 @@ const options = {
       const currentTime = Date.now();
       const selectDate = datePickr.selectedDates[0].getTime();
       const ms = selectDate - currentTime;
-    
+
     function convertMs(ms) {
         // Number of milliseconds per unit of time
         const second = 1000;
@@ -49,13 +50,18 @@ const options = {
         // Remaining seconds
         const seconds = Math.floor((((ms % day) % hour) % minute) / second);
       
+
         return { days, hours, minutes, seconds };
       }
 
-        initDaysValue.textContent = Number(convertMs(ms).days);
-        initHoursValue.textContent = Number(convertMs(ms).hours);
-        initMinutesValue.textContent = Number(convertMs(ms).minutes);
-        initSecondsValue.textContent = Number(convertMs(ms).seconds);
+      function addLeadingZero(value) {
+        return String(value).padStart(2, '0'); 
+       }
+
+        initDaysValue.textContent = addLeadingZero(convertMs(ms).days);
+        initHoursValue.textContent = addLeadingZero(convertMs(ms).hours);
+        initMinutesValue.textContent = addLeadingZero(convertMs(ms).minutes);
+        initSecondsValue.textContent = addLeadingZero(convertMs(ms).seconds);
     }, 1000) 
   }
   };
