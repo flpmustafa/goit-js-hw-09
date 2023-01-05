@@ -19,7 +19,8 @@ const options = {
     onClose(selectedDates) {
        if (dateNow > selectedDates[0]) {
           window.alert('Please choose a date in the future!')
-          window.location.reload(); }
+          window.location.reload(); 
+        }
        btnStart.removeAttribute("disabled", "disabled");
     }
   }
