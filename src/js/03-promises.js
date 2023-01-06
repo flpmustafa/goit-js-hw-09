@@ -12,9 +12,9 @@ const amount = document.querySelector('[name="amount"]');
 
 form.addEventListener('submit', submitCreatePromises);
 
-function submitCreatePromises(el) {
+function submitCreatePromises(ev) {
 
-  el.preventDefault();
+  ev.preventDefault();
 
   let delay = Number(firstDelayMs.value);
   const delayStepMsVal = Number(delayStepMs.value);
@@ -34,6 +34,8 @@ function submitCreatePromises(el) {
       });
     delay += delayStepMsVal;
   }
+
+  ev.currentTarget.reset();
 }
 
 function createPromise(position, delay) {
@@ -48,3 +50,4 @@ function createPromise(position, delay) {
     }, delay);
   });
 }
+

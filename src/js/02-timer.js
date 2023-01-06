@@ -27,14 +27,18 @@ const options = {
 
 
   const datePickr = flatpickr(initDate, options)
-
+  let intervalId = null;
   const timer = {
-    start () {
-    setInterval(() => {
+    start() {
+    intervalId = setInterval(() => {
       const currentTime = Date.now();
       const selectDate = datePickr.selectedDates[0].getTime();
       const ms = selectDate - currentTime;
-
+     
+      if (ms <= 900) {
+        clearInterval(intervalId);
+      }
+      
     function convertMs(ms) {
         // Number of milliseconds per unit of time
         const second = 1000;
@@ -50,7 +54,6 @@ const options = {
         const minutes = Math.floor(((ms % day) % hour) / minute);
         // Remaining seconds
         const seconds = Math.floor((((ms % day) % hour) % minute) / second);
-      
 
         return { days, hours, minutes, seconds };
       }
@@ -63,8 +66,8 @@ const options = {
         initHoursValue.textContent = addLeadingZero(convertMs(ms).hours);
         initMinutesValue.textContent = addLeadingZero(convertMs(ms).minutes);
         initSecondsValue.textContent = addLeadingZero(convertMs(ms).seconds);
-    }, 1000) 
-  }
+    }, 1000);
+    },
   };
 
 btnStart.addEventListener('click', () => {
@@ -80,4 +83,3 @@ btnStart.addEventListener('click', () => {
     location.reload();
   })
 });
-
